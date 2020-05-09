@@ -1,4 +1,4 @@
-# CovidSim Version 0.1.0 (release.simulation.edit)
+# CovidSim Version 1.0.1 (simulation.majorchange.minoredit)
 # Jack Wang and Tim Fuller
 
 # Inputs, and setting up variables
@@ -31,12 +31,19 @@ def generation_recoveries():
     recovered_by_generation.append(int(new_recovered))
 
 
+def sum_list(ls):
+    for i in range(ls):
+        sum += ls[i]
+
+
 for i in range(number_of_generations):
+    # Runs the actual sim
     next_infected()
     generation_deaths()
     generation_recoveries()
     generation += 1
 
+# Gives results
 print(infected_by_generation)
 print(deaths_by_generation)
 print(recovered_by_generation)
