@@ -1,4 +1,4 @@
-# CovidSim Version 1.0.1 (simulation.majorchange.minoredit)
+# CovidSim Version 1.0.2 (simulation.majorchange.minoredit)
 # Jack Wang and Tim Fuller
 
 # Inputs, and setting up variables
@@ -32,8 +32,11 @@ def generation_recoveries():
 
 
 def sum_list(ls):
-    for i in range(ls):
+    listsum = []
+    for i in len(ls):
         sum += ls[i]
+        listsum.append(sum)
+        return listsum
 
 
 for i in range(number_of_generations):
@@ -45,5 +48,9 @@ for i in range(number_of_generations):
 
 # Gives results
 print(infected_by_generation)
+sum_list(infected_by_generation)
+print(listsum)
 print(deaths_by_generation)
 print(recovered_by_generation)
+sum_list(recovered_by_generation)
+sum_list(infected_by_generation)
