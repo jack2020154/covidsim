@@ -5,6 +5,7 @@
 
 import matplotlib.pyplot as plt
 
+
 def next_infected():
     # Function for calculating the spread from the previous generation
     new_infected = infected_by_generation[generation-1] * r_nought
@@ -58,9 +59,9 @@ sum_list(recovered_by_generation)
 sum_list(infected_by_generation)
 
 fig, ax = plt.subplots()
-ax.plot(range(0,number_of_generations+ 1), infected_by_generation, "r--", label = 'Infected')
-ax.plot(range(0,number_of_generations + 1), deaths_by_generation, "k--", label = 'Deaths')
-ax.plot(range(0,number_of_generations + 1), recovered_by_generation, "b--", label = 'Recovered')
+ax.plot(range(0, number_of_generations + 1), infected_by_generation, "r--", label='Infected')
+ax.plot(range(0, number_of_generations + 1), deaths_by_generation, "k--", label='Deaths')
+ax.plot(range(0, number_of_generations + 1), recovered_by_generation, "b--", label='Recovered')
 legend = ax.legend(loc='upper centeer', shadow=True, fontsize='x-large')
 legend.get_frame().set_facecolor('C0')
 plt.xlabel('Generations')
