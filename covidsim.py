@@ -2,16 +2,8 @@
 # Jack Wang and Tim Fuller
 
 # Inputs, and setting up variables
-initial_infected = int(input("How many people start infected? "))
-r_nought = float(input("What is R nought? "))
-total_pop = int(input("What is the population size? "))
-mortality_rate: float = float(input("What is the mortality rate (decimal)? "))
-number_of_generations = int(input("How many generations are to be run? "))
-generation = 1
-infected_by_generation = [initial_infected]
-deaths_by_generation = [0]
-recovered_by_generation = [0]
 
+import matplotlib.pyplot as plt
 
 def next_infected():
     # Function for calculating the spread from the previous generation
@@ -36,6 +28,16 @@ def sum_list(ls):
         sum += ls[i]
 
 
+initial_infected = int(input("How many people start infected? "))
+r_nought = float(input("What is R nought? "))
+total_pop = int(input("What is the population size? "))
+mortality_rate: float = float(input("What is the mortality rate (decimal)? "))
+number_of_generations = int(input("How many generations are to be run? "))
+generation = 1
+infected_by_generation = [initial_infected]
+deaths_by_generation = [0]
+recovered_by_generation = [0]
+
 for i in range(number_of_generations):
     # Runs the actual sim
     next_infected()
@@ -47,3 +49,15 @@ for i in range(number_of_generations):
 print(infected_by_generation)
 print(deaths_by_generation)
 print(recovered_by_generation)
+
+fig, ax = plt.subplots()
+ax.plot(range(0,number_of_generations+ 1), infected_by_generation, "r--", label = 'Infected')
+ax.plot(range(0,number_of_generations + 1), deaths_by_generation, "k--", label = 'Deaths')
+ax.plot(range(0,number_of_generations + 1), recovered_by_generation, "b--", label = 'Recovered')
+
+legend = ax.legend(loc='upper centeer', shadow=True, fontsize='x-large')
+legend.get_frame().set_facecolor('C0')
+
+plt.xlabel('Generations')
+plt.ylabel('Population')
+plt.show()
