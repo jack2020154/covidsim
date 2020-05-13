@@ -1,9 +1,10 @@
-# CovidSim Version 1.0.2 (simulation.majorchange.minoredit)
+# CovidSim Version 1.0.3 (simulation.majorchange.minoredit)
 # Jack Wang and Tim Fuller
 
 # Inputs, and setting up variables
 
 import matplotlib.pyplot as plt
+
 
 def next_infected():
     # Function for calculating the spread from the previous generation
@@ -24,13 +25,13 @@ def generation_recoveries():
 
 
 def sum_list(ls):
-    #Sum of list, where the value at index i is equal to the sum of all previous values (inclusive of current)
+    # Sum of list, where the value at index i is equal to the sum of all previous values (inclusive of current)
     listsum = []
     for i in range(len(ls)):
         count = 0
         for j in range(i):
             count += ls[j]
-        #Lazy hotfix that works with no penalty
+        # Lazy hotfix that works with no penalty
         count += ls[i]
         listsum.append(count)
     return listsum
@@ -62,9 +63,9 @@ print(recovered_by_generation)
 print(sum_list(recovered_by_generation))
 
 fig, ax = plt.subplots()
-ax.plot(range(0,number_of_generations+ 1), sum_list(infected_by_generation), "r--", label = 'Infected')
-ax.plot(range(0,number_of_generations + 1), sum_list(deaths_by_generation), "k--", label = 'Deaths')
-ax.plot(range(0,number_of_generations + 1), sum_list(recovered_by_generation), "b--", label = 'Recovered')
+ax.plot(range(0, number_of_generations + 1), sum_list(infected_by_generation), "r--", label='Infected')
+ax.plot(range(0, number_of_generations + 1), sum_list(deaths_by_generation), "k--", label='Deaths')
+ax.plot(range(0, number_of_generations + 1), sum_list(recovered_by_generation), "b--", label='Recovered')
 legend = ax.legend(loc='best', shadow=True, fontsize='x-large')
 legend.get_frame().set_facecolor('C0')
 plt.xlabel('Generations')
