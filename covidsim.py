@@ -1,4 +1,4 @@
-# CovidSim Version 1.0.3 (simulation.majorchange.minoredit)
+# CovidSim Version 1.0.4 (simulation.majorchange.minoredit)
 # Jack Wang and Tim Fuller
 
 # Inputs, and setting up variables
@@ -8,8 +8,15 @@ import matplotlib.pyplot as plt
 
 def next_infected():
     # Function for calculating the spread from the previous generation
-    new_infected = infected_by_generation[generation-1] * r_nought
-    infected_by_generation.append(int(new_infected))
+    if lenient_restrictions <= generation < heavy_restrictions:
+        new_infected = infected_by_generation[generation - 1] * r_nought_lenient
+        infected_by_generation.append(int(new_infected))
+    elif generation >= heavy_restrictions:
+        new_infected = infected_by_generation[generation - 1] * r_nought_heavy
+        infected_by_generation.append(int(new_infected))
+    else:
+        new_infected = infected_by_generation[generation-1] * r_nought
+        infected_by_generation.append(int(new_infected))
 
 
 def generation_deaths():
@@ -46,6 +53,10 @@ generation = 1
 infected_by_generation = [initial_infected]
 deaths_by_generation = [0]
 recovered_by_generation = [0]
+lenient_restrictions = int(input("How many generations until lenient restrictions are in place? "))
+r_nought_lenient: float = float(input("What is R nought after lenient restrictions are enacted? "))
+heavy_restrictions = int(input("How many generations until heavy restrictions are in place? "))
+r_nought_heavy: float = float(input("What is R nought after heavy restrictions are enacted? "))
 
 for i in range(number_of_generations):
     # Runs the actual sim
