@@ -1,4 +1,4 @@
-# CovidSim Version 1.0.4 (simulation.majorchange.minoredit)
+# CovidSim Version 1.0.5 (simulation.majorchange.minoredit)
 # Jack Wang and Tim Fuller
 
 # Inputs, and setting up variables
@@ -6,16 +6,25 @@
 import matplotlib.pyplot as plt
 
 
+def herd_immunity(r_nought_theoretical):
+    if generation == 0:
+        r_nought_effective = r_nought_theoretical * (total_pop - initial_infected)/total_pop
+    else:
+        r_nought_effective = r_nought_theoretical * ((total_pop - (sum_list(infected_by_generation))[generation - 1])
+                                                     / total_pop)
+    return r_nought_effective
+
+
 def next_infected():
     # Function for calculating the spread from the previous generation
     if lenient_restrictions <= generation < heavy_restrictions:
-        new_infected = infected_by_generation[generation - 1] * r_nought_lenient
+        new_infected = infected_by_generation[generation - 1] * herd_immunity(r_nought_lenient)
         infected_by_generation.append(int(new_infected))
     elif generation >= heavy_restrictions:
-        new_infected = infected_by_generation[generation - 1] * r_nought_heavy
+        new_infected = infected_by_generation[generation - 1] * herd_immunity(r_nought_heavy)
         infected_by_generation.append(int(new_infected))
     else:
-        new_infected = infected_by_generation[generation-1] * r_nought
+        new_infected = infected_by_generation[generation-1] * herd_immunity(r_nought)
         infected_by_generation.append(int(new_infected))
 
 
