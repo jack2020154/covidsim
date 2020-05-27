@@ -87,17 +87,12 @@ print(sum_list(recovered_by_generation))
 df=pandas.DataFrame({'x': range(0, number_of_generations + 1), 'Infected': sum_list(infected_by_generation), 'Deaths': sum_list(deaths_by_generation), 'Recovered': sum_list(recovered_by_generation)})
 
 fig, ax = plt.subplots()
+
 plt.subplots_adjust(bottom=0.45)
-#plot0 = plt.figure(1)
-#ax.plot(range(0, number_of_generations + 1), sum_list(infected_by_generation), "r--", label='Infected')
-#ax.plot(range(0, number_of_generations + 1), sum_list(deaths_by_generation), "k--", label='Deaths')
-#ax.plot(range(0, number_of_generations + 1), sum_list(recovered_by_generation), "b--", label='Recovered')
 inf, = plt.plot('x', 'Infected', data=df, marker='', color='red')
 dea, = plt.plot('x', 'Deaths', data=df, marker='', color='black')
 rec, = plt.plot('x', 'Recovered', data=df, marker='', color='blue')
 
-#legend = ax.legend(loc='best', shadow=True, fontsize='x-large')
-#legend.get_frame().set_facecolor('C0')
 plt.legend()
 plt.xlabel('Generations')
 plt.ylabel('Population')
@@ -136,7 +131,6 @@ def recompute():
     recovered_by_generation.clear()
     recovered_by_generation = [0]
     for i in range(number_of_generations):
-        # Runs the actual sim
         next_infected()
         generation_deaths()
         generation_recoveries()
@@ -171,15 +165,5 @@ srnaught_heavy.on_changed(update)
 slethality.on_changed(update)
 slenient_gen.on_changed(update)
 sheavy_gen.on_changed(update)
-
-#fig, ax = plt.subplots()
-#plot1 = plt.figure(2)
-#ax.plot(range(0, number_of_generations + 1), infected_by_generation, "r--", label='Infected')
-#ax.plot(range(0, number_of_generations + 1), deaths_by_generation, "k--", label='Deaths')
-#ax.plot(range(0, number_of_generations + 1), recovered_by_generation, "b--", label='Recovered')
-#legend = ax.legend(loc='best', shadow=True, fontsize='x-large')
-#legend.get_frame().set_facecolor('C0')
-#plt.xlabel('Generations')
-#plt.ylabel('Infected by Generation')
 
 plt.show()
