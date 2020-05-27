@@ -87,7 +87,7 @@ print(sum_list(recovered_by_generation))
 df=pandas.DataFrame({'x': range(0, number_of_generations + 1), 'Infected': sum_list(infected_by_generation), 'Deaths': sum_list(deaths_by_generation), 'Recovered': sum_list(recovered_by_generation)})
 
 fig, ax = plt.subplots()
-plt.subplots_adjust(bottom=0.30)
+plt.subplots_adjust(bottom=0.35)
 #plot0 = plt.figure(1)
 #ax.plot(range(0, number_of_generations + 1), sum_list(infected_by_generation), "r--", label='Infected')
 #ax.plot(range(0, number_of_generations + 1), sum_list(deaths_by_generation), "k--", label='Deaths')
@@ -95,6 +95,10 @@ plt.subplots_adjust(bottom=0.30)
 inf, = plt.plot('x', 'Infected', data=df, marker='', color='red')
 dea, = plt.plot('x', 'Deaths', data=df, marker='', color='black')
 rec, = plt.plot('x', 'Recovered', data=df, marker='', color='blue')
+
+plt.axvline(x=lenient_restrictions, label='Lenient Restrictions', c='g', linestyle='dotted')
+plt.axvline(x=heavy_restrictions,label='Heavy Restrictions', c='r', linestyle='dotted')
+
 #legend = ax.legend(loc='best', shadow=True, fontsize='x-large')
 #legend.get_frame().set_facecolor('C0')
 plt.legend()
@@ -102,15 +106,18 @@ plt.xlabel('Generations')
 plt.ylabel('Population')
 
 axcolor = 'lightgoldenrodyellow'
-axrnaught = plt.axes([0.25, 0.15, 0.65, 0.03], facecolor=axcolor)
-axrnaught_lenient=plt.axes([0.25, 0.10, 0.65, 0.03], facecolor=axcolor)
-axrnaught_heavy=plt.axes([0.25, 0.05, 0.65, 0.03], facecolor=axcolor)
+axrnaught = plt.axes([0.25, 0.20, 0.65, 0.03], facecolor=axcolor)
+axrnaught_lenient = plt.axes([0.25, 0.15, 0.65, 0.03], facecolor=axcolor)
+axrnaught_heavy = plt.axes([0.25, 0.10, 0.65, 0.03], facecolor=axcolor)
+axlethality = plt.axes([0.25, 0.05, 0.65, 0.03], facecolor=axcolor)
 
 srnaught = Slider(axrnaught, 'R-naught', 0.1, 10.0, valinit=r_nought, valstep=0.1)
 srnaught_lenient = Slider(axrnaught_lenient, 'Next R-naught', 0.1, 10.0, valinit=r_nought_lenient, valstep=0.1)
-srnaught_heavy=Slider(axrnaught_heavy, 'Final R-naught', 0.1, 10.0, valinit=r_nought_heavy, valstep=0.1)
+srnaught_heavy = Slider(axrnaught_heavy, 'Final R-naught', 0.1, 10.0, valinit=r_nought_heavy, valstep=0.1)
+slethality = Slider(axlethality, 'Mortality Rate', 0, 1.0, valinit=mortality_rate, valstep=0.01)
 
 def recompute():
+    global mortality_rate
     global generation
     generation = 1
     global infected_by_generation
@@ -136,10 +143,12 @@ def update(val):
     global inf
     global dea
     global rec
+    global mortality_rate
     
     r_nought = srnaught.val
     r_nought_lenient = srnaught_lenient.val
     r_nought_heavy = srnaught_heavy.val
+    mortality_rate = slethality.val
     recompute()
     inf.set_ydata(sum_list(infected_by_generation))
     dea.set_ydata(sum_list(deaths_by_generation))
@@ -149,6 +158,7 @@ def update(val):
 srnaught.on_changed(update)
 srnaught_lenient.on_changed(update)
 srnaught_heavy.on_changed(update)
+slethality.on_changed(update)
 
 #fig, ax = plt.subplots()
 #plot1 = plt.figure(2)
