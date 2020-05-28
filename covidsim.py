@@ -84,7 +84,8 @@ print(sum_list(deaths_by_generation))
 print(recovered_by_generation)
 print(sum_list(recovered_by_generation))
 
-df=pandas.DataFrame({'x': range(0, number_of_generations + 1), 'Infected': sum_list(infected_by_generation), 'Deaths': sum_list(deaths_by_generation), 'Recovered': sum_list(recovered_by_generation)})
+df = pandas.DataFrame({'x': range(0, number_of_generations + 1), 'Infected': sum_list(infected_by_generation), 'Deaths':
+                    sum_list(deaths_by_generation), 'Recovered': sum_list(recovered_by_generation)})
 
 fig, ax = plt.subplots()
 
@@ -109,7 +110,8 @@ srnaught = Slider(axrnaught, 'R-naught', 0.1, 10.0, valinit=r_nought, valstep=0.
 srnaught_lenient = Slider(axrnaught_lenient, 'Next R-naught', 0.1, 10.0, valinit=r_nought_lenient, valstep=0.1)
 srnaught_heavy = Slider(axrnaught_heavy, 'Final R-naught', 0.1, 10.0, valinit=r_nought_heavy, valstep=0.1)
 slethality = Slider(axlethality, 'Mortality Rate', 0, 1.0, valinit=mortality_rate, valstep=0.01)
-slenient_gen = Slider(axlenient_gen, 'Lenient Restrictions', 0, number_of_generations, valinit=lenient_restrictions, valstep=1)
+slenient_gen = Slider(axlenient_gen, 'Lenient Restrictions', 0, number_of_generations, valinit=lenient_restrictions,
+                      valstep=1)
 sheavy_gen = Slider(axheavy_gen, 'Heavy Restrictions', 0, number_of_generations, valinit=heavy_restrictions, valstep=1)
 
 def recompute():
